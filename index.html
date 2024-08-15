@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    
+    <section>
+        <h1>Tip Calculator</h1>
+        <form>
+            <label for="billAmount">Bill Amount</label> <br>
+            <input type="number" id="billAmount" required>
+            <br>
+            <label for="numPeople">Number of People</label> <br>
+            <input type="range" id="numPeople" min="1" max="10" value="1">
+            <span id="numPeopleValue"></span>
+            <br>
+            <label for="tipPercentagev">Tip Percentage</label> <br>
+            <input type="range" id="tipPercentage" min="1" max="100" value="0">
+            <span id="tipPercentageValue"></span>
+             <br>
+        </form>
+    
+        <div id="result">
+            <p>Tip Amount: <span></span></p>
+            <input id="tipAmountInput" type="text" readonly>
+            <p>Total Amount: <span id="totalAmount"></span></p>
+            <input id="totalAmountInput" type="text" readonly>
+            <p>Amount per person</p>
+            <input id="amountPerPersonInput" type="text" readonly>
+        </div>
+    
+    </section>
+    <style>
+      body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: aqua;
+}
+section{
+    border: 2px solid red;
+    padding: 10px 40px;
+    border-radius: 10px;
+    background-color: aliceblue;
+}
+
+
+h1{
+    font-size:30px;
+    color: blue;
+}
+#billAmount{
+   background-color: azure;
+    padding: 15px 10px;
+    border: 3px solid rgb(32, 205, 19);
+    border-radius: 10px;
+}
+#tipAmountInput{
+    background-color: bisque;
+    padding: 10px;
+    border-radius: 10px;
+}
+#totalAmountInput{
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+#amountPerPersonInput{
+    background-color: beige;
+    padding: 10px ;
+    border-radius: 10px;
+}
+
+    </style>
+    <script>
+      
+const billAmountInput = document.getElementById('billAmount');
+const numPeopleInput = document.getElementById('numPeople');
+const tipPercentageInput = document.getElementById('tipPercentage');
+const tipAmountInput = document.getElementById('tipAmountInput');
+const totalAmountInput = document.getElementById('totalAmountInput');
+const amountPerPersonInput = document.getElementById('amountPerPersonInput');
+
+billAmountInput.addEventListener('input', calculateTip);
+numPeopleInput.addEventListener('input', calculateTip);
+tipPercentageInput.addEventListener('input', calculateTip);
+numPeopleInput.addEventListener('input', ()=>{
+    numPeopleValue.innerHTML='👤 ' + numPeople.value;
+});
+tipPercentageInput.addEventListener('input',  () => {
+    tipPercentageValue.innerHTML=tipPercentage.value + '%';
+});
+
+
+function calculateTip() {
+    const billAmount = parseFloat(billAmountInput.value);
+    const numPeople = parseInt(numPeopleInput.value);
+    const tipPercentage = parseFloat(tipPercentageInput.value);
+    const tipAmount = (billAmount * tipPercentage) / 100;
+    const totalAmount = billAmount + tipAmount;
+    const amountPerPerson = totalAmount / numPeople;
+
+    
+    tipAmountInput.value = `$${tipAmount.toFixed(2)}`;
+    amountPerPersonInput.value = `$${amountPerPerson.toFixed(2)}`;
+    totalAmountInput.value = `$${totalAmount.toFixed(2)}`;
+}
+
+    </script>
+</body>
+
+</html>
